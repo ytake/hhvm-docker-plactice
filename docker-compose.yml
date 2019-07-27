@@ -1,0 +1,43 @@
+version: '3'
+services:
+  hhvm:
+    build:
+      context: ./docker/hhvm
+    volumes:
+      - .:/var/www
+      - ./docker/hhvm/hh.conf:/etc/hh.conf
+      - ./docker/hhvm/php.ini:/etc/hhvm/php.ini
+      - ./docker/hhvm/server.ini:/etc/hhvm/server.ini
+    command: hhvm --mode server -vServer.AllowRunAsRoot=1
+    restart: always
+    tty: true
+    container_name: hhvm
+    ports:
+      - 19001:19001
+  web-server:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - 80:80
+    command: >
+      /bin/sh -c
+      "envsubst '
+      $$NGINX_SERVER_NAME
+      '< /etc/nginx/conf.d/hhvm.conf.template
+      > /etc/nginx/conf.d/hhvm.conf && nginx -g 'daemon off;'"
+    environment:
+      NGINX_SERVER_NAME: "nazg.local"
+    container_name: web-server
+    tty: true
+    depends_on:
+      - "hhvm"
+  memcached:
+    image: memcached:latest
+    ports:
+    - "31211:11211"
+  redis:
+    image: redis:latest
+    ports:
+    - "3379:6379"
+
