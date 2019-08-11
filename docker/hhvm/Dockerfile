@@ -1,4 +1,4 @@
-FROM hhvm/hhvm-proxygen:4.15-latest
+FROM hhvm/hhvm-proxygen:4.17-latest
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive

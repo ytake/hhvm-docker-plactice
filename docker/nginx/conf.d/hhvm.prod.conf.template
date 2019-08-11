@@ -1,0 +1,20 @@
+# HHVM Repo Authoritative For Productiom
+# https://docs.hhvm.com/hhvm/advanced-usage/repo-authoritative
+
+upstream hhvm-proxygen {
+  server hhvm:18080;
+}
+
+server {
+    listen 80;
+    server_name ${NGINX_SERVER_NAME};
+    charset utf-8;
+
+    location / {
+        root /var/www;
+        proxy_pass http://hhvm-proxygen;
+        fastcgi_index public/index.hack;
+        fastcgi_param DOCUMENT_ROOT /var/www;
+        include /usr/local/etc/nginx/fastcgi_params;
+    }
+}

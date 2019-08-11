@@ -27,7 +27,7 @@ services:
       '< /etc/nginx/conf.d/hhvm.conf.template
       > /etc/nginx/conf.d/hhvm.conf && nginx -g 'daemon off;'"
     environment:
-      NGINX_SERVER_NAME: "nazg.local"
+      NGINX_SERVER_NAME: "hhvm-docker-plactice.local"
     container_name: web-server
     tty: true
     depends_on:
@@ -40,4 +40,3 @@ services:
     image: redis:latest
     ports:
     - "3379:6379"
-
