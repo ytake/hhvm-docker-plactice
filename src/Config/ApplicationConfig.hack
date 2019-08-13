@@ -11,6 +11,6 @@ final class ApplicationConfig extends \Nazg\Foundation\ApplicationConfig {
   }
 
   public function getApp(): dict<arraykey, mixed> {
-    return $this->routes;
+    return $this->app;
   }
 }

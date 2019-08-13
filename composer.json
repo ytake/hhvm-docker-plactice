@@ -57,5 +57,13 @@
       "*": "dist"
     },
     "sort-packages": true
+  },
+  "scripts": {
+    "tests": [
+      "hhvm ./vendor/bin/hacktest.hack tests/"
+    ],
+    "register": [
+      "hhvm ./vendor/bin/hh-autoload.hack"
+    ]
   }
 }

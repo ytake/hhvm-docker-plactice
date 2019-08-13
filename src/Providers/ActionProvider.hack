@@ -10,5 +10,8 @@ final class ActionProvider extends ConsistentServiceProvider {
     $this->container
       ->bind(Action\IndexAction::class)
       ->provider(new Action\IndexActionProvider());
+    $this->container
+      ->bind(Action\ExampleAction::class)
+      ->provider(new Action\ExampleActionProvider());
   }
 }
